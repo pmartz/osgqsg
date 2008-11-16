@@ -60,7 +60,7 @@ main( int, char ** )
     sg->accept( fnn );
     if (fnn.getNode() != NULL)
     {
-        // We found the node. MGet the ShadeModel attribute
+        // We found the node. Get the ShadeModel attribute
         //   from its StateSet and set it to SMOOTH shading.
         osg::StateSet* ss = fnn.getNode()->getOrCreateStateSet();
         osg::ShadeModel* sm = dynamic_cast<osg::ShadeModel*>(
