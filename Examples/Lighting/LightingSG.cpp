@@ -99,15 +99,13 @@ createPlane()
 osg::ref_ptr<osg::Node>
 createSceneGraph()
 {
-    // Create the root node and set state for the entire sibgraph.
+    // Create the root node and set state for the entire subgraph.
     osg::ref_ptr<osg::Group> root = new osg::Group;
     {
         osg::StateSet* state = root->getOrCreateStateSet();
         state->setMode( GL_LIGHTING, osg::StateAttribute::ON );
         state->setMode( GL_LIGHT0, osg::StateAttribute::ON );
         state->setMode( GL_LIGHT1, osg::StateAttribute::ON );
-        // Should be off by default, but osgviewer enables it.
-        state->setMode( GL_COLOR_MATERIAL, osg::StateAttribute::OFF );
     }
 
     // Represent the two light sources with a shared point.
