@@ -48,6 +48,7 @@ MACRO( FIND_OSG_INCLUDE THIS_OSG_INCLUDE_DIR THIS_OSG_INCLUDE_FILE )
             /opt/local/ # DarwinPorts
             /opt/csw/ # Blastwave
             /opt/
+            "C:/Program Files/OpenSceneGraph/"
             [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/
             ~/Library/Frameworks
             /Library/Frameworks
@@ -63,6 +64,7 @@ MACRO(FIND_OSG_LIBRARY MYLIBRARY MYLIBRARYNAME)
     FIND_LIBRARY(${MYLIBRARY}
         NAMES ${MYLIBRARYNAME}
         PATHS
+        "C:/Program Files/OpenSceneGraph/lib"
         $ENV{OSG_DIR}/lib
         $ENV{OSG_DIR}/Build/lib
         $ENV{OSG_DIR}
