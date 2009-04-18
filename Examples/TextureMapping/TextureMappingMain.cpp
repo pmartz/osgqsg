@@ -14,7 +14,7 @@
 
 using std::endl;
 
-osg::ref_ptr<osg::Node> createSceneGraph();
+osg::Node* createSceneGraph();
 
 int
 main( int argc, char** argv)
@@ -23,14 +23,14 @@ main( int argc, char** argv)
     if (!root.valid())
     {
         osg::notify(osg::FATAL) << "Failed in createSceneGraph()." << endl;
-        return 1;
+        return( 1 );
     }
 
     std::string out( "TextureMapping.osg" );
     if ( !(osgDB::writeNodeFile( *(root.get()), out )) )
     {
         osg::notify(osg::FATAL) << "Failed in osgDB::writeNodeFile()." << endl;
-        return 1;
+        return( 1 );
     }
 
     osg::notify(osg::ALWAYS) << "Successfully wrote \"" << out << "\". Execute \"osgviewer " << out << "\" to view." << endl;

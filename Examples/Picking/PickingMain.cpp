@@ -59,7 +59,7 @@ protected:
 // Create the scene graph. This is a Group root node with two
 //   MatrixTransform children, which multiply parent a single
 //   Geode loaded from the cow.osg model file.
-osg::ref_ptr<osg::Node>
+osg::Node*
 createScene()
 {
     // Load the cow model.
@@ -67,7 +67,7 @@ createScene()
     if (!cow.valid())
     {
         osg::notify( osg::FATAL ) << "Unable to load data file. Exiting." << std::endl;
-        return NULL;
+        return( NULL );
     }
     // Data variance is STATIC because we won't modify it.
     cow->setDataVariance( osg::Object::STATIC );
@@ -116,7 +116,7 @@ createScene()
     root->addChild( mtLeft.get() );
     root->addChild( mtRight.get() );
 
-    return root.get();
+    return( root.release() );
 }
 
 
@@ -132,7 +132,7 @@ public:
         osgViewer::Viewer* viewer =
                 dynamic_cast<osgViewer::Viewer*>( &aa );
         if (!viewer)
-            return false;
+            return( false );
 
         switch( ea.getEventType() )
         {
@@ -143,7 +143,7 @@ public:
                 //   and move events.
                 _mX = ea.getX();
                 _mY = ea.getY();
-                return false;
+                return( false );
             }
             case osgGA::GUIEventAdapter::RELEASE:
             {
@@ -155,13 +155,13 @@ public:
                 {
                     if (pick( ea.getXnormalized(),
                                 ea.getYnormalized(), viewer ))
-                        return true;
+                        return( true );
                 }
-                return false;
+                return( false );
             }    
 
             default:
-                return false;
+                return( false );
         }
     }
 
@@ -175,7 +175,7 @@ protected:
     {
         if (!viewer->getSceneData())
             // Nothing to pick.
-            return false;
+            return( false );
 
         double w( .05 ), h( .05 );
         osgUtil::PolytopeIntersector* picker =
@@ -222,7 +222,7 @@ protected:
             _selectedNode->setUpdateCallback( NULL );
             _selectedNode = NULL;
         }
-        return _selectedNode.valid();
+        return( _selectedNode.valid() );
     }
 };
 
@@ -231,13 +231,13 @@ main( int argc, char **argv )
 {
     // create the view of the scene.
     osgViewer::Viewer viewer;
-    viewer.setSceneData( createScene().get() );
+    viewer.setSceneData( createScene() );
 
     viewer.getCamera()->setClearColor( osg::Vec4( 1., 1., 1., 1. ) );
 
     // add the pick handler
     viewer.addEventHandler( new PickHandler );
 
-    return viewer.run();
+    return( viewer.run() );
 }
 

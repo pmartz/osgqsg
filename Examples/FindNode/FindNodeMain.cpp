@@ -52,7 +52,7 @@ main( int, char ** )
     if (!sg.valid())
     {
         osg::notify( osg::FATAL ) << "Unable to load data file. Exiting." << std::endl;
-        return 1;
+        return( 1 );
     }
 
     // Find the node who's name is "Flat".

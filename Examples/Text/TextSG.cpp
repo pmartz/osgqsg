@@ -12,7 +12,7 @@
 #include <osgText/Text>
 
 
-osg::ref_ptr<osg::Drawable>
+osg::Drawable*
 createBase()
 {
     osg::ref_ptr<osg::Geometry> geom = new osg::Geometry;
@@ -40,16 +40,16 @@ createBase()
     geom->addPrimitiveSet(
         new osg::DrawArrays( osg::PrimitiveSet::QUADS, 0, 4 ) );
 
-    return geom.get();
+    return( geom.release() );
 }
 
-osg::ref_ptr<osg::Node>
+osg::Node*
 createSceneGraph()
 {
     // Create the root (and only) node.
     osg::ref_ptr<osg::Geode> geode = new osg::Geode;
 
-    geode->addDrawable( createBase().get() );
+    geode->addDrawable( createBase() );
 
     osg::ref_ptr<osgText::Font> font = osgText::readFontFile( "fonts/arial.ttf" );
 
@@ -88,5 +88,5 @@ createSceneGraph()
         geode->addDrawable( text.get() );
     }
 
-    return geode.get();
+    return( geode.release() );
 }

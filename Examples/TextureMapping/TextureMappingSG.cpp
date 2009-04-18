@@ -17,7 +17,7 @@
 #include <osg/Notify>
 #include <string>
 
-osg::ref_ptr<osg::Node>
+osg::Node*
 createGeodes()
 {
     osg::ref_ptr<osg::Vec3Array> v = new osg::Vec3Array;
@@ -111,10 +111,10 @@ createGeodes()
         grp->addChild( geode.get() );
     }
 
-    return grp.get();
+    return( grp.release() );
 }
 
-osg::ref_ptr<osg::Node>
+osg::Node*
 createSceneGraph()
 {
     osg::ref_ptr<osg::Node> node = createGeodes();
@@ -131,7 +131,7 @@ createSceneGraph()
     if (!image.valid())
     {
         osg::notify( osg::FATAL ) << "Unable to load data file. Exiting." << std::endl;
-        return NULL;
+        return( NULL );
     }
 
     // Set the image in a Texture2D object
@@ -153,5 +153,5 @@ createSceneGraph()
     state->setAttributeAndModes( af );
 
 
-    return node.get();
+    return( node.release() );
 }

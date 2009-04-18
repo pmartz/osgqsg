@@ -49,7 +49,7 @@ protected:
 // Create the scene graph. This is a Group root node with two
 //   MatrixTransform children, which multiply parent a single
 //   Geode loaded from the cow.osg model file.
-osg::ref_ptr<osg::Node>
+osg::Node*
 createScene()
 {
     // Load the cow model.
@@ -57,7 +57,7 @@ createScene()
     if (!cow.valid())
     {
         osg::notify( osg::FATAL ) << "Unable to load data file. Exiting." << std::endl;
-        return NULL;
+        return( NULL );
     }
     // Data variance is STATIC because we won't modify it.
     cow->setDataVariance( osg::Object::STATIC );
@@ -94,7 +94,7 @@ createScene()
     root->addChild( mtLeft.get() );
     root->addChild( mtRight.get() );
 
-    return root.get();
+    return( root.release() );
 }
 
 int
@@ -103,9 +103,9 @@ main( int, char ** )
     // Create the viewer and set its scene data to our scene
     //   graph created above.
     osgViewer::Viewer viewer;
-    viewer.setSceneData( createScene().get() );
+    viewer.setSceneData( createScene() );
     if (!viewer.getSceneData())
-        return 1;
+        return( 1 );
 
     // Set the clear color to something other than chalky blue.
     viewer.getCamera()->setClearColor(
@@ -113,5 +113,5 @@ main( int, char ** )
 
     // Loop and render. OSG calls RotateCB::operator()
     //   during the update traversal.
-    return viewer.run();
+    return( viewer.run() );
 }

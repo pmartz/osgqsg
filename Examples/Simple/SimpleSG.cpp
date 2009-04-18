@@ -9,7 +9,7 @@
 #include <osg/Geode>
 #include <osg/Geometry>
 
-osg::ref_ptr<osg::Node>
+osg::Node*
 createSceneGraph()
 {
     // Create an object to store geometry in.
@@ -57,5 +57,5 @@ createSceneGraph()
     // Add the Geometry (Drawable) to a Geode and return the Geode.
     osg::ref_ptr<osg::Geode> geode = new osg::Geode;
     geode->addDrawable( geom.get() );
-    return geode.get();
+    return( geode.release() );
 }

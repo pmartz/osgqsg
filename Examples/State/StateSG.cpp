@@ -19,7 +19,7 @@
 
 // Create a pair of quadrilateral primitives with color
 //   per vertex and return them as a single Drawable.
-osg::ref_ptr<osg::Drawable>
+osg::Drawable*
 createDrawable()
 {
     osg::ref_ptr<osg::Geometry> geom = new osg::Geometry;
@@ -50,10 +50,10 @@ createDrawable()
     geom->addPrimitiveSet(
         new osg::DrawArrays( osg::PrimitiveSet::QUADS, 0, 8 ) );
 
-    return geom.get();
+    return( geom.release() );
 }
 
-osg::ref_ptr<osg::Node>
+osg::Node*
 createSceneGraph()
 {
     // Create the root node Group.
@@ -69,7 +69,7 @@ createSceneGraph()
 
     // Create the leaf node Geode and attach the Drawable.
     osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-    geode->addDrawable( createDrawable().get() );
+    geode->addDrawable( createDrawable() );
 
     osg::Matrix m;
     {
@@ -125,5 +125,5 @@ createSceneGraph()
         state->setAttribute( lw );
     }
 
-    return root.get();
+    return( root.release() );
 }
