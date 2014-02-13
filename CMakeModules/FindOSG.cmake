@@ -37,11 +37,13 @@
 # you must be using the new CMake code (introduced just before Jan 1st, 2006).
 
 MACRO( FIND_OSG_INCLUDE THIS_OSG_INCLUDE_DIR THIS_OSG_INCLUDE_FILE )
-    FIND_PATH( ${THIS_OSG_INCLUDE_DIR} ${THIS_OSG_INCLUDE_FILE}
+    FIND_PATH( ${THIS_OSG_INCLUDE_DIR}
+        NAMES ${THIS_OSG_INCLUDE_FILE}
         PATHS
-            $ENV{OSG_SOURCE_DIR}
-            $ENV{OSGDIR}
-            $ENV{OSG_DIR}
+            ${OSG_SOURCE_DIR}
+            ${OSGDIR}
+            ${OSG_DIR}
+            ${OSG_ROOT}
             /usr/local/
             /usr/
             /sw/ # Fink
@@ -49,9 +51,12 @@ MACRO( FIND_OSG_INCLUDE THIS_OSG_INCLUDE_DIR THIS_OSG_INCLUDE_FILE )
             /opt/csw/ # Blastwave
             /opt/
             "C:/Program Files/OpenSceneGraph/"
-            [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/
             ~/Library/Frameworks
             /Library/Frameworks
+            ENV OSG_SOURCE_DIR
+            ENV OSGDIR
+            ENV OSG_DIR
+            ENV OSG_ROOT
         PATH_SUFFIXES
             include
     )
@@ -61,27 +66,32 @@ FIND_OSG_INCLUDE( OSG_INCLUDE_DIR osg/PositionAttitudeTransform )
 FIND_OSG_INCLUDE( OSG_GEN_INCLUDE_DIR osg/Config )
 
 MACRO(FIND_OSG_LIBRARY MYLIBRARY MYLIBRARYNAME)
-    FIND_LIBRARY(${MYLIBRARY}
+    FIND_LIBRARY( ${MYLIBRARY}
         NAMES ${MYLIBRARYNAME}
         PATHS
-        "C:/Program Files/OpenSceneGraph/lib"
-        $ENV{OSG_DIR}/lib
-        $ENV{OSG_DIR}/Build/lib
-        $ENV{OSG_DIR}
-        $ENV{OSGDIR}/lib
-        $ENV{OSGDIR}
-        $ENV{OSG_ROOT}/lib
-        $ENV{OSG_ROOT}/Build/lib
-        ~/Library/Frameworks
-        /Library/Frameworks
-        /usr/local/lib
-        /usr/lib
-        /sw/lib
-        /opt/local/lib
-        /opt/csw/lib
-        /opt/lib
-        [HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session\ Manager\\Environment;OSG_ROOT]/lib
-        /usr/freeware/lib64
+            "C:/Program Files/OpenSceneGraph"
+            ${OSG_BUILD_DIR}
+            ${OSGDIR}
+            ${OSG_DIR}
+            ${OSG_ROOT}
+            ~/Library/Frameworks
+            /Library/Frameworks
+            /usr/local
+            /usr
+            /sw
+            /opt/local
+            /opt/csw
+            /opt
+            /usr/freeware/lib64
+            ENV OSG_BUILD_DIR
+            ENV OSGDIR
+            ENV OSG_DIR
+            ENV OSG_ROOT
+        PATH_SUFFIXES
+            lib
+            Build/lib
+            build/lib
+            bld/lib
     )
 ENDMACRO(FIND_OSG_LIBRARY LIBRARY LIBRARYNAME)
 
